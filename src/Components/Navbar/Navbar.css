@@ -80,3 +80,8 @@
   background: red;
   color: white;
 }
+
+.nav-link {
+  text-decoration: none;
+  color: #626262;
+}
