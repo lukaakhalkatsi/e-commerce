@@ -1,4 +1,4 @@
-.new-collections {
+.popular {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,22 +6,21 @@
   height: 90vh;
 }
 
-.new-collections h1 {
+.popular h1 {
   color: #171717;
   font-size: 50px;
   font-weight: 600;
 }
 
-.new-collections hr {
+.popular hr {
   width: 200px;
   height: 6px;
   border-radius: 10px;
   background: #252525;
 }
 
-.collections {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+.popular-item {
   margin-top: 50px;
+  display: flex;
   gap: 30px;
 }
