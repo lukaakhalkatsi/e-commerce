@@ -14,7 +14,7 @@ function Signup() {
         </div>
         <button>Register</button>
         <p className="signup-text">
-          Already have an account?
+          Already have an account?{" "}
           <Link to={"/login"}>
             <span>Login Here</span>
           </Link>
