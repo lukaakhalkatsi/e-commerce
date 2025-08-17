@@ -17,10 +17,6 @@ function Login() {
             <span>Register Here</span>
           </Link>
         </p>
-        <div className="login-agree">
-          <input type="checkbox" name="" id="" />
-          <p>By continuing, i agree to the terms of use & privacy policy.</p>
-        </div>
       </div>
     </div>
   );

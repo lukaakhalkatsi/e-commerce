@@ -10,6 +10,7 @@ function Signup() {
           <input type="" placeholder="Your Name" />
           <input type="email" placeholder="Email Address" />
           <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Repeat Password" />
         </div>
         <button>Register</button>
         <p className="signup-text">
