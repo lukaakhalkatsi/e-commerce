@@ -1,5 +1,11 @@
+import CartItems from "../Components/CartItems/CartItems";
+
 function Cart() {
-  return <div>cart</div>;
+  return (
+    <div>
+      <CartItems />
+    </div>
+  );
 }
 
 export default Cart;
