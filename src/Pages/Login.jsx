@@ -5,14 +5,14 @@ import { AuthContext } from "../Context/AuthContext";
 
 function Login() {
   const { login } = useContext(AuthContext);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
-      login(username, password);
-      console.log(username, password);
+      await login(email, password);
+      console.log(email, password);
     } catch (error) {
       alert(error.message);
     }
@@ -24,8 +24,8 @@ function Login() {
         <h1>Login</h1>
         <div className="login-fields">
           <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="Email Address"
           />
