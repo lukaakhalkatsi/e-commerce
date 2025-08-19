@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Navbar.css";
 import logo from "../Assets/logo.png";
 import cart_icon from "../Assets/cart_icon.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
 
 function Navbar() {
   const [menu, setMenu] = useState("shop");
-
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (location.pathname !== "/") {
-  //     navigate("/");
-  //   }
-  // }, []);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <div className="navbar">
@@ -65,15 +58,20 @@ function Navbar() {
         </li>
       </ul>
       <div className="nav-login-cart">
-        <Link to="/login" className="nav-link">
-          <button>Login</button>
-        </Link>
+        {user ? (
+          <div>{user.user_id}</div>
+        ) : (
+          <Link to="/login" className="nav-link">
+            <button>Login</button>
+          </Link>
+        )}
         <Link to="/cart" className="nav-link">
           {" "}
           <img src={cart_icon} alt="" />
         </Link>
         <div className="nav-cart-count">0</div>
       </div>
+      {user ? <button onClick={logout}>Log Out</button> : <></>}
     </div>
   );
 }

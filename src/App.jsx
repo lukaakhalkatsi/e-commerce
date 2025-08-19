@@ -13,6 +13,8 @@ import women_banner from "./Components/Assets/banner_women.png";
 import kid_banner from "./Components/Assets/banner_kids.png";
 import Signup from "./Pages/Signup";
 import ConfirmEmail from "./Pages/ConfirmEmail";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import PublicRoute from "./Components/PublicRoute/PublicRoute";
 
 function App() {
   return (
@@ -47,9 +49,30 @@ function App() {
                 }
               />
               <Route path="/product/:productId" element={<Product />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute>
+                    <Login />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <PublicRoute>
+                    <Signup />
+                  </PublicRoute>
+                }
+              />
             </Routes>
             <Footer />
           </div>

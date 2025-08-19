@@ -1,11 +1,26 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("access");
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setUser(decoded);
+      } catch (err) {
+        console.error("Invalid token:", err);
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
+      }
+    }
+  }, []);
 
   const login = async (email, password) => {
     const bodyValue = { email, password };
@@ -22,10 +37,14 @@ export const AuthContextProvider = ({ children }) => {
 
     const data = await response.json();
     console.log(data);
-    // setUser(data.user);
-    // Store tokens
+
     localStorage.setItem("access", data.access);
     localStorage.setItem("refresh", data.refresh);
+
+    const decoded = jwtDecode(data.access);
+    console.log("Decoded token:", decoded);
+
+    setUser(decoded);
     navigate("/");
   };
 
@@ -45,7 +64,14 @@ export const AuthContextProvider = ({ children }) => {
     console.log(data);
   };
 
-  const value = { user, login, register };
+  const logout = () => {
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+    setUser(null);
+    navigate("/login");
+  };
+
+  const value = { user, login, register, logout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
