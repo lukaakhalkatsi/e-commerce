@@ -10,11 +10,11 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (location.pathname !== "/") {
-      navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (location.pathname !== "/") {
+  //     navigate("/");
+  //   }
+  // }, []);
 
   return (
     <div className="navbar">
