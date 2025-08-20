@@ -2,19 +2,35 @@ import { Link } from "react-router-dom";
 import "./CSS/Login.css";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
+import Loading from "../Components/Loading/Loading";
+// ✅ import toastify
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
-  const { login } = useContext(AuthContext);
+  const { login, loading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
+
+    if (!email.trim() || !password.trim()) {
+      toast.error("Please fill in both email and password.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.warning("Please enter a valid email address.");
+      return;
+    }
+
     try {
       await login(email, password);
-      console.log(email, password);
+      toast.success("Logged in successfully!");
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message || "Login failed, try again.");
     }
   };
 
@@ -36,7 +52,9 @@ function Login() {
             placeholder="Password"
           />
         </div>
-        <button onClick={handleSubmitLogin}>Continue</button>
+        <button onClick={handleSubmitLogin}>
+          {loading ? <Loading /> : <span>Continue</span>}
+        </button>
         <p className="login-text">
           Don't have an account?{" "}
           <Link to={"/signup"}>

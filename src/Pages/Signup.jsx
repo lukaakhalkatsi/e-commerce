@@ -3,8 +3,13 @@ import "./CSS/Signup.css";
 import { AuthContext } from "../Context/AuthContext";
 import { useState, useContext } from "react";
 
+// ✅ import toastify
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Components/Loading/Loading";
+
 function Signup() {
-  const { register } = useContext(AuthContext);
+  const { register, loading } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,15 +17,33 @@ function Signup() {
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
-    console.log({ username, email, password, repeatedpassword });
+
+    // validation
+    if (
+      !username.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !repeatedpassword.trim()
+    ) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.warning("Please enter a valid email address.");
+      return;
+    }
+
+    if (password !== repeatedpassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+
     try {
-      if (password === repeatedpassword) {
-        await register(username, email, password);
-      } else {
-        alert("parolebi ar emtxveva ertmanets");
-      }
+      await register(username, email, password);
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message || "Signup failed, please try again.");
     }
   };
 
@@ -32,7 +55,7 @@ function Signup() {
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            type=""
+            type="text"
             placeholder="Your Name"
           />
           <input
@@ -55,7 +78,7 @@ function Signup() {
           />
         </div>
         <button type="button" onClick={handleSubmitRegister}>
-          Register
+          {loading ? <Loading /> : <span>Register</span>}
         </button>
         <p className="signup-text">
           Already have an account?{" "}
@@ -64,8 +87,8 @@ function Signup() {
           </Link>
         </p>
         <div className="signup-agree">
-          <input type="checkbox" name="" id="" />
-          <p>By continuing, i agree to the terms of use & privacy policy.</p>
+          <input type="checkbox" />
+          <p>By continuing, I agree to the terms of use & privacy policy.</p>
         </div>
       </div>
     </div>

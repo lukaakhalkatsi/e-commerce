@@ -15,6 +15,7 @@ import Signup from "./Pages/Signup";
 import ConfirmEmail from "./Pages/ConfirmEmail";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute/PublicRoute";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
               />
             </Routes>
             <Footer />
+            <ToastContainer position="top-right" autoClose={3000} />
           </div>
         }
       />
