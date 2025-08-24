@@ -62,6 +62,11 @@ function Login() {
             <span>Register Here</span>
           </Link>
         </p>
+        <p className="login-forgotpassword">
+          <Link to={"/resetpassword"}>
+            <span>Forgot Password?</span>
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -45,14 +45,16 @@
   cursor: pointer;
 }
 
-.login-text {
+.login-text,
+.login-forgotpassword {
   margin-top: 20px;
   color: #5c5c5c;
   font-size: 18px;
   font-weight: 500;
 }
 
-.login-text span {
+.login-text span,
+.login-forgotpassword span {
   color: #ff4141;
   font-weight: 600;
   text-decoration: underline;
@@ -71,4 +73,8 @@
   font-size: 18px;
   color: #5c5c5c;
   font-weight: 500;
+}
+
+.login-forgotpassword {
+  margin-top: 10px;
 }

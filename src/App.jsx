@@ -16,6 +16,7 @@ import ConfirmEmail from "./Pages/ConfirmEmail";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute/PublicRoute";
 import { ToastContainer } from "react-toastify";
+import ForgotPassword from "./Pages/ForgotPassword";
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
                   </PublicRoute>
                 }
               />
+              <Route path="/resetpassword" element={<ForgotPassword />} />
             </Routes>
             <Footer />
             <ToastContainer position="top-right" autoClose={3000} />
