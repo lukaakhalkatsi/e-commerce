@@ -87,9 +87,13 @@ export const AuthContextProvider = ({ children }) => {
         }
       );
 
-      if (!response.ok) throw new Error("Login failed");
+      if (!response.ok) {
+        toast.error("Login failed");
+        throw new Error("Login failed");
+      }
 
       const data = await response.json();
+      toast.success("Logged in successfully!");
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
 

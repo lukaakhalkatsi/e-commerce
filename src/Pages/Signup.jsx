@@ -51,35 +51,37 @@ function Signup() {
     <div className="signup">
       <div className="signup-container">
         <h1>Sign Up</h1>
-        <div className="signup-fields">
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            type="text"
-            placeholder="Your Name"
-          />
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="Email Address"
-          />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            placeholder="Password"
-          />
-          <input
-            value={repeatedpassword}
-            onChange={(e) => setRepeatedPassword(e.target.value)}
-            type="password"
-            placeholder="Repeat Password"
-          />
-        </div>
-        <button type="button" onClick={handleSubmitRegister}>
-          {loading ? <Loading /> : <span>Register</span>}
-        </button>
+        <form onSubmit={handleSubmitRegister}>
+          <div className="signup-fields">
+            <input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              type="text"
+              placeholder="Your Name"
+            />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Email Address"
+            />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+            />
+            <input
+              value={repeatedpassword}
+              onChange={(e) => setRepeatedPassword(e.target.value)}
+              type="password"
+              placeholder="Repeat Password"
+            />
+          </div>
+          <button type="submit">
+            {loading ? <Loading /> : <span>Register</span>}
+          </button>
+        </form>
         <p className="signup-text">
           Already have an account?{" "}
           <Link to={"/login"}>

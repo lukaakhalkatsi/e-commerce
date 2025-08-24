@@ -28,7 +28,6 @@ function Login() {
 
     try {
       await login(email, password);
-      toast.success("Logged in successfully!");
     } catch (error) {
       toast.error(error.message || "Login failed, try again.");
     }
@@ -38,23 +37,25 @@ function Login() {
     <div className="login">
       <div className="login-container">
         <h1>Login</h1>
-        <div className="login-fields">
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="Email Address"
-          />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            placeholder="Password"
-          />
-        </div>
-        <button onClick={handleSubmitLogin}>
-          {loading ? <Loading /> : <span>Continue</span>}
-        </button>
+        <form onSubmit={handleSubmitLogin}>
+          <div className="login-fields">
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Email Address"
+            />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+          <button type="submit">
+            {loading ? <Loading /> : <span>Continue</span>}
+          </button>
+        </form>
         <p className="login-text">
           Don't have an account?{" "}
           <Link to={"/signup"}>
