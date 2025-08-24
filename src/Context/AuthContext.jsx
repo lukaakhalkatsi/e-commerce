@@ -132,7 +132,6 @@ export const AuthContextProvider = ({ children }) => {
         "Link was sent to your email, please verify and then login",
         { autoClose: 10000 }
       );
-      navigate("/login");
       setLoading(false);
     } catch (err) {
       setError(err.message);
