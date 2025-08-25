@@ -16,14 +16,18 @@ import ConfirmEmail from "./Pages/ConfirmEmail";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute/PublicRoute";
 import { ToastContainer } from "react-toastify";
-import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/resetPassword";
+import ConfirmResetPassword from "./Pages/ConfirmResetPassword";
 
 function App() {
   return (
     <Routes>
       {/* Independent confirm_url route */}
       <Route path="/confirm_url/:uidb64/:token" element={<ConfirmEmail />} />
-
+      <Route
+        path="/reset-password/:uidb64/:token"
+        element={<ConfirmResetPassword />}
+      />
       {/* All routes with Navbar + Footer */}
       <Route
         path="/*"
@@ -75,7 +79,7 @@ function App() {
                   </PublicRoute>
                 }
               />
-              <Route path="/resetpassword" element={<ForgotPassword />} />
+              <Route path="/resetpassword" element={<ResetPassword />} />
             </Routes>
             <Footer />
             <ToastContainer position="top-right" autoClose={3000} />
