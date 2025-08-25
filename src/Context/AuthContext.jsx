@@ -34,7 +34,7 @@ export const AuthContextProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        "https://ecommerce-backend-935007092710.europe-west3.run.app/api/user/token/refresh/",
+        `${import.meta.env.VITE_APP_BASE_API_URL}/user/token/refresh/`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -79,7 +79,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://ecommerce-backend-935007092710.europe-west3.run.app/api/user/login/",
+        `${import.meta.env.VITE_APP_BASE_API_URL}/user/login/`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -115,7 +115,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://ecommerce-backend-935007092710.europe-west3.run.app/api/user/register/",
+        `${import.meta.env.VITE_APP_BASE_API_URL}/user/register/`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

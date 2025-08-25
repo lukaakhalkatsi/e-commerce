@@ -20,7 +20,7 @@ function ResetPassword() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://ecommerce-backend-935007092710.europe-west3.run.app/api/user/password-reset/",
+        `${import.meta.env.VITE_APP_BASE_API_URL}/user/password-reset/`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

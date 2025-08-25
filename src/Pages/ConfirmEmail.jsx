@@ -13,7 +13,7 @@ function ConfirmEmail() {
     const confirmEmail = async () => {
       try {
         const response = await fetch(
-          "https://ecommerce-backend-935007092710.europe-west3.run.app/api/user/confirm-email/",
+          `${import.meta.env.VITE_APP_BASE_API_URL}/user/confirm-email/`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
