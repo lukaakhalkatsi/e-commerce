@@ -26,7 +26,11 @@ function App() {
       <Route path="/confirm_url/:uidb64/:token" element={<ConfirmEmail />} />
       <Route
         path="/reset-password/:uidb64/:token"
-        element={<ConfirmResetPassword />}
+        element={
+          <PublicRoute>
+            <ConfirmResetPassword />
+          </PublicRoute>
+        }
       />
       {/* All routes with Navbar + Footer */}
       <Route
@@ -79,7 +83,14 @@ function App() {
                   </PublicRoute>
                 }
               />
-              <Route path="/resetpassword" element={<ResetPassword />} />
+              <Route
+                path="/resetpassword"
+                element={
+                  <PublicRoute>
+                    <ResetPassword />
+                  </PublicRoute>
+                }
+              />
             </Routes>
             <Footer />
             <ToastContainer position="top-right" autoClose={3000} />
