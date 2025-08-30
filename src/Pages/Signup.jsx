@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./CSS/Signup.css";
 import { AuthContext } from "../Context/AuthContext";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 // ✅ import toastify
 import { toast } from "react-toastify";
@@ -9,11 +9,29 @@ import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Components/Loading/Loading";
 
 function Signup() {
-  const { register, loading } = useContext(AuthContext);
+  const { register, resendEmailConfirm, loading } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedpassword, setRepeatedPassword] = useState("");
+
+  // ✅ New states
+  const [showResend, setShowResend] = useState(false);
+  const [timer, setTimer] = useState(60);
+  const [canClick, setCanClick] = useState(false);
+
+  // ✅ Countdown effect
+  useEffect(() => {
+    let interval;
+    if (showResend && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (timer === 0 && !canClick) {
+      setCanClick(true);
+    }
+    return () => clearInterval(interval);
+  }, [showResend, timer]);
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
@@ -42,8 +60,25 @@ function Signup() {
 
     try {
       await register(username, email, password);
+      // ✅ Show resend link & start timer
+      setShowResend(true);
+      setTimer(60);
+      setCanClick(false);
     } catch (error) {
       toast.error(error.message || "Signup failed, please try again.");
+    }
+  };
+
+  // ✅ Handle resend email click
+  const handleResendEmailConfirm = async () => {
+    if (!canClick) return;
+    try {
+      console.log(`email ${email}`);
+      await resendEmailConfirm(email);
+      setTimer(60);
+      setCanClick(false);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -82,16 +117,26 @@ function Signup() {
             {loading ? <Loading /> : <span>Register</span>}
           </button>
         </form>
-        <p className="signup-text">
-          Already have an account?{" "}
-          <Link to={"/login"}>
-            <span>Login Here</span>
-          </Link>
-        </p>
-        <div className="signup-agree">
-          <input type="checkbox" />
-          <p>By continuing, I agree to the terms of use & privacy policy.</p>
-        </div>
+
+        {showResend ? (
+          <p className="resend-email">
+            Didn’t get a mail?{" "}
+            {canClick ? (
+              <span className="resend-link" onClick={handleResendEmailConfirm}>
+                Resend
+              </span>
+            ) : (
+              <span className="resend-wait">Wait {timer}s</span>
+            )}
+          </p>
+        ) : (
+          <p className="signup-text">
+            Already have an account?{" "}
+            <Link to={"/login"}>
+              <span>Login Here</span>
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );

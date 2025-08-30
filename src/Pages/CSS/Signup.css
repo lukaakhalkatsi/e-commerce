@@ -63,12 +63,32 @@
   text-decoration: none;
 }
 
-.signup-agree {
-  display: flex;
-  align-items: center;
-  margin-top: 25px;
-  gap: 20px;
+/* Resend email text */
+.resend-email {
+  margin-top: 20px;
   font-size: 18px;
-  color: #5c5c5c;
   font-weight: 500;
+  color: #5c5c5c;
+}
+
+/* countdown text (red instead of gray) */
+.resend-wait {
+  color: #ff4141;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+/* clickable link */
+.resend-link {
+  color: #ff4141;
+  font-weight: 600;
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.resend-link:hover {
+  color: #d93636;
+  text-decoration: none;
 }

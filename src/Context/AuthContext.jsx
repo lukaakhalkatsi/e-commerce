@@ -141,6 +141,29 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const resendEmailConfirm = async (email) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_BASE_API_URL}/user/resend-confirm-email/`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      if (!response.ok) {
+        toast.error("Error Occured");
+        throw new Error("Registration failed");
+      }
+
+      await response.json();
+      toast.info("Resend email link request was sent again.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const logout = (redirect = true) => {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
@@ -155,6 +178,7 @@ export const AuthContextProvider = ({ children }) => {
       error,
       login,
       register,
+      resendEmailConfirm,
       logout,
       refreshAccessToken,
     }),
