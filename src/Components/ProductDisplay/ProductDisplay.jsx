@@ -35,9 +35,7 @@ function ProductDisplay({ product }) {
           </div>
         </div>
         <div className="productdisplay-right-description">
-          A lightweight, usually knitted, pullover shirt, close-fitting and A
-          lightweight, usually knitted, pullover shirt, close-fitting and A
-          lightweight, usually knitted, pullover shirt, close-fitting and
+          {product.description}
         </div>
         <div className="productdisplay-right-size">
           <h1>Select Size</h1>

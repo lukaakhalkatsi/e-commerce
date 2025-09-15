@@ -6,6 +6,7 @@ function Item({ id, name, image, new_price, old_price }) {
     <div className="item">
       <Link to={`/product/${id}`}>
         <img
+          className="product-img"
           src={image}
           alt=""
           onClick={() => {

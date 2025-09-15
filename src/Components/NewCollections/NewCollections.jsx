@@ -1,14 +1,17 @@
 import "./NewCollections.css";
 import new_collection from "../Assets/new_collections";
 import Item from "../Item/Item";
+import { useContext } from "react";
+import { ShopContext } from "../../Context/ShopContext";
 
 function NewCollections() {
+  const { products } = useContext(ShopContext);
   return (
     <div className="new-collections">
       <h1>NEW COLLECTIONS</h1>
       <hr />
       <div className="collections">
-        {new_collection.map(({ id, name, image, new_price, old_price }, i) => {
+        {products.map(({ id, name, image, new_price, old_price }, i) => {
           return (
             <Item
               key={i}
