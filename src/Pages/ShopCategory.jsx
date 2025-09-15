@@ -5,20 +5,20 @@ import dropdown_icon from "../Components/Assets/dropdown_icon.png";
 import Item from "../Components/Item/Item";
 
 function ShopCategory({ ItemCategory, banner }) {
-  const { all_product } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
   return (
     <div className="shop-category">
       <img className="shopcategory-banner" src={banner} alt="" />
       <div className="shopcategory-indexSort">
         <p>
-          <span>Showing 1-12</span> out of {all_product.length} products
+          <span>Showing 1-12</span> out of {products.length} products
         </p>
         <div className="shopcategory-sort">
           Sort by <img src={dropdown_icon} alt="" />
         </div>
       </div>
       <div className="shopcategory-products">
-        {all_product.map(
+        {products.map(
           ({ id, name, image, new_price, old_price, category }, i) => {
             if (ItemCategory === category) {
               return (

@@ -1,8 +1,21 @@
 import "./ProductDisplay.css";
 import star_icon from "../Assets/star_icon.png";
 import starr_dull_icon from "../Assets/star_dull_icon.png";
+import { useContext } from "react";
+import { CartContext } from "../../Context/CartContext";
 
 function ProductDisplay({ product }) {
+  const { addItemToCart } = useContext(CartContext);
+
+  const handleAddItemToCart = async (slug) => {
+    console.log(slug);
+    try {
+      await addItemToCart(slug);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="productdisplay">
       <div className="productdisplay-left">
@@ -47,7 +60,10 @@ function ProductDisplay({ product }) {
             <div>XXL</div>
           </div>
         </div>
-        <button>ADD TO CART</button>
+        <button onClick={() => handleAddItemToCart(product.slug)}>
+          ADD TO CART
+        </button>
+
         <p className="productdisplay-right-category">
           <span>Category :</span>
           Women, T-Shirt, Crop Top
