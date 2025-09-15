@@ -1,8 +1,12 @@
 import "./CartItems.css";
 import remove_icon from "../Assets/cart_cross_icon.png";
 import all_product from "../Assets/all_product.js";
+import { useContext } from "react";
+import { CartContext } from "../../Context/CartContext.jsx";
 
 function CartItems() {
+  const { cartItems } = useContext(CartContext);
+  console.log(cartItems);
   return (
     <div className="cartitems">
       <div className="caritems-format-main">
