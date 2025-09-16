@@ -64,9 +64,40 @@ export function CartProvider({ children }) {
     }
   };
 
+  const removeItemFromCart = async (slug) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_BASE_API_URL}/cart/remove_item/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ slug }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete item from cart");
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <CartContext.Provider
-      value={{ cartItems, setCartItems, loading, addItemToCart }}
+      value={{
+        cartItems,
+        setCartItems,
+        loading,
+        addItemToCart,
+        removeItemFromCart,
+      }}
     >
       {children}
     </CartContext.Provider>

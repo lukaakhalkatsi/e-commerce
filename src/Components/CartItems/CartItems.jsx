@@ -5,8 +5,14 @@ import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext.jsx";
 
 function CartItems() {
-  const { cartItems } = useContext(CartContext);
-  console.log(cartItems);
+  const { cartItems, removeItemFromCart } = useContext(CartContext);
+  const handleRemoveItemFromCart = async (slug) => {
+    try {
+      await removeItemFromCart(slug);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="cartitems">
       <div className="caritems-format-main">
@@ -18,21 +24,30 @@ function CartItems() {
         <p>Remove</p>
       </div>
       <hr />
-      {cartItems.items.map((item) => {
-        return (
-          <div>
+
+      {cartItems?.items?.length > 0 ? (
+        cartItems.items.map((item) => (
+          <div key={item.slug}>
             <div className="cartitems-format caritems-format-main">
               <img src={item.image} alt="" className="carticon-product-icon" />
               <p>{item.product_name}</p>
               <p>${item.old_price}</p>
               <button className="cartitems-quantity">{item.quantity}</button>
               <p>$255</p>
-              <img className="cartitems-remove-icon" src={remove_icon} alt="" />
+              <img
+                className="cartitems-remove-icon"
+                onClick={() => handleRemoveItemFromCart(item.slug)}
+                src={remove_icon}
+                alt=""
+              />
             </div>
             <hr />
           </div>
-        );
-      })}
+        ))
+      ) : (
+        <p>Your cart is empty.</p>
+      )}
+
       <div className="cartitems-down">
         <div className="cartitems-total">
           <h1>cart Totals</h1>
