@@ -7,6 +7,7 @@ import { CartContext } from "../../Context/CartContext.jsx";
 function CartItems() {
   const { cartItems, removeItemFromCart } = useContext(CartContext);
   const handleRemoveItemFromCart = async (slug) => {
+    console.log(slug);
     try {
       await removeItemFromCart(slug);
     } catch (error) {
@@ -26,17 +27,21 @@ function CartItems() {
       <hr />
 
       {cartItems?.items?.length > 0 ? (
-        cartItems.items.map((item) => (
-          <div key={item.slug}>
+        cartItems.items.map((item, index) => (
+          <div key={item.slug || index}>
             <div className="cartitems-format caritems-format-main">
-              <img src={item.image} alt="" className="carticon-product-icon" />
-              <p>{item.product_name}</p>
-              <p>${item.old_price}</p>
+              <img
+                src={item.product.image}
+                alt=""
+                className="carticon-product-icon"
+              />
+              <p>{item.product.name}</p>
+              <p>${item.product.current_price}</p>
               <button className="cartitems-quantity">{item.quantity}</button>
-              <p>$255</p>
+              <p>${item.quantity * Number(item.product.current_price)}</p>
               <img
                 className="cartitems-remove-icon"
-                onClick={() => handleRemoveItemFromCart(item.slug)}
+                onClick={() => handleRemoveItemFromCart(item.product.slug)}
                 src={remove_icon}
                 alt=""
               />

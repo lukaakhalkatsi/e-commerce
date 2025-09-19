@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { AuthContext } from "./AuthContext";
 
 export const CartContext = createContext();
 
@@ -6,6 +7,7 @@ export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("access");
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -35,8 +37,11 @@ export function CartProvider({ children }) {
       }
     };
 
-    fetchCartItems();
-  }, []);
+    // ✅ Only run if user/token exists
+    if (user) {
+      fetchCartItems();
+    }
+  }, [user, token]); // also re-run when user or token changes
 
   const addItemToCart = async (slug) => {
     console.log(token);
