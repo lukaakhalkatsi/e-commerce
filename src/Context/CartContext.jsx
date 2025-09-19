@@ -37,11 +37,10 @@ export function CartProvider({ children }) {
       }
     };
 
-    // ✅ Only run if user/token exists
-    if (user) {
+    if (user && token) {
       fetchCartItems();
     }
-  }, [user, token]); // also re-run when user or token changes
+  }, [user, token]);
 
   const addItemToCart = async (slug) => {
     console.log(token);
