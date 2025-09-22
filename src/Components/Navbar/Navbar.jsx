@@ -2,13 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import "./Navbar.css";
 import logo from "../Assets/logo.png";
 import cart_icon from "../Assets/cart_icon.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
+import { CartContext } from "../../Context/CartContext";
 
 function Navbar() {
   const [menu, setMenu] = useState("shop");
   const { user, logout } = useContext(AuthContext);
-
+  const { cartItems } = useContext(CartContext);
+  console.log(cartItems.length);
   return (
     <div className="navbar">
       <div className="nav-logo">
@@ -69,7 +71,7 @@ function Navbar() {
           {" "}
           <img src={cart_icon} alt="" />
         </Link>
-        <div className="nav-cart-count">0</div>
+        <div className="nav-cart-count">{cartItems?.items?.length}</div>
       </div>
       {user ? <button onClick={logout}>Log Out</button> : <></>}
     </div>
