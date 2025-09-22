@@ -43,7 +43,7 @@ export function CartProvider({ children }) {
   }, [user, token]);
 
   const addItemToCart = async (slug) => {
-    console.log(token);
+    setLoading(true);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_APP_BASE_API_URL}/cart/add_item/`,
@@ -62,13 +62,16 @@ export function CartProvider({ children }) {
       }
 
       const data = await response.json();
-      console.log(data);
+      setCartItems(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const removeItemFromCart = async (slug) => {
+    setLoading(true);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_APP_BASE_API_URL}/cart/remove_item/`,
@@ -87,9 +90,11 @@ export function CartProvider({ children }) {
       }
 
       const data = await response.json();
-      console.log(data);
+      setCartItems(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 

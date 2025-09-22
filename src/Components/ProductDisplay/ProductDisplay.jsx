@@ -3,9 +3,10 @@ import star_icon from "../Assets/star_icon.png";
 import starr_dull_icon from "../Assets/star_dull_icon.png";
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
+import { LoaderCircle } from "lucide-react";
 
 function ProductDisplay({ product }) {
-  const { addItemToCart } = useContext(CartContext);
+  const { addItemToCart, loading } = useContext(CartContext);
 
   const handleAddItemToCart = async (slug) => {
     console.log(slug);
@@ -61,7 +62,7 @@ function ProductDisplay({ product }) {
           </div>
         </div>
         <button onClick={() => handleAddItemToCart(product.slug)}>
-          ADD TO CART
+          {loading ? <LoaderCircle /> : <span>ADD TO CART</span>}
         </button>
 
         <p className="productdisplay-right-category">

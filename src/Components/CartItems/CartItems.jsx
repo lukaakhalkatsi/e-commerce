@@ -5,9 +5,8 @@ import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext.jsx";
 
 function CartItems() {
-  const { cartItems, removeItemFromCart } = useContext(CartContext);
+  const { cartItems, removeItemFromCart, loading } = useContext(CartContext);
   const handleRemoveItemFromCart = async (slug) => {
-    console.log(slug);
     try {
       await removeItemFromCart(slug);
     } catch (error) {
