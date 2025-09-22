@@ -3,12 +3,35 @@ import remove_icon from "../Assets/cart_cross_icon.png";
 import all_product from "../Assets/all_product.js";
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext.jsx";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 function CartItems() {
-  const { cartItems, removeItemFromCart, loading } = useContext(CartContext);
+  const {
+    cartItems,
+    removeItemFromCart,
+    loading,
+    decreaseItemInCart,
+    addItemToCart,
+  } = useContext(CartContext);
   const handleRemoveItemFromCart = async (slug) => {
     try {
       await removeItemFromCart(slug);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDecreaseItemInCart = async (slug) => {
+    try {
+      await decreaseItemInCart(slug);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleIncreaseItemInCart = async (slug) => {
+    try {
+      await addItemToCart(slug);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +59,18 @@ function CartItems() {
               />
               <p>{item.product.name}</p>
               <p>${item.product.current_price}</p>
-              <button className="cartitems-quantity">{item.quantity}</button>
+              <div className="decrease-box">
+                <ArrowLeft
+                  className="decrease-btn"
+                  onClick={() => handleDecreaseItemInCart(item.product.slug)}
+                >
+                  -
+                </ArrowLeft>
+                <button className="cartitems-quantity">{item.quantity}</button>
+                <ArrowRight
+                  onClick={() => handleIncreaseItemInCart(item.product.slug)}
+                ></ArrowRight>
+              </div>
               <p>${item.quantity * Number(item.product.current_price)}</p>
               <img
                 className="cartitems-remove-icon"

@@ -98,6 +98,31 @@ export function CartProvider({ children }) {
     }
   };
 
+  const decreaseItemInCart = async (slug) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_BASE_API_URL}/cart/decrease_item/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ slug }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to decrease item");
+      }
+
+      const data = await response.json();
+      setCartItems(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -106,6 +131,7 @@ export function CartProvider({ children }) {
         loading,
         addItemToCart,
         removeItemFromCart,
+        decreaseItemInCart,
       }}
     >
       {children}
